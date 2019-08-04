@@ -7,8 +7,6 @@ class AgentsController < ApplicationController
       f.html
       f.json {render json: @agents}
     end
-
-    # render json: @agents
   end
 
   def show
@@ -16,7 +14,10 @@ class AgentsController < ApplicationController
       redirect_to user_path(User.find_by_id(session[:user_id]), error_message: "that is not your data")
     end
     @agent = Agent.find_by_id(params[:id])
-    render json: @agent
+    respond_to do |f|
+      f.html
+      f.json {render json: @agent}
+    end
   end
 
   def new
