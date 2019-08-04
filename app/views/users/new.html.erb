@@ -2,7 +2,7 @@
 <p><%= "#{@error_message}" %></p><br>
 <% end %>
 <% if @user.errors.full_messages.each do |e| %>
-<p><%= e %></p>
+<p><%= e %></p><br>
 <% end %>
 <%= form_for(@user) do |f| %>
 
@@ -12,5 +12,6 @@
 <%= f.label "Password" %>
 <%= f.text_field :password %><br>
 
-<%= f.submit "Create User" %>
+<%= f.submit "Create User" %><br>
+<% end %>
 <% end %>
