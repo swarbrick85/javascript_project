@@ -1,9 +1,10 @@
 <h1>Your Agents</h1>
-
+<% counter = 0 %>
 <% if !@agents.nil? %>
 <% @agents.each do |agent| %>
 <% if agent.valid? %>
-<%= link_to "#{agent.name}", user_agent_path(agent.user, agent) %><br>
+<%= link_to "#{agent.name}", user_agent_path(agent.user, agent), id: "agent#{counter}" %><br>
+<% counter += 1 %>
 <% end %>
 <% end %>
 <% end %>

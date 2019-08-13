@@ -9,12 +9,12 @@ const agents = () => {
     fetch(`${$(".agents").attr("href")}` + `.json`)
       .then(res => res.json())
       .then(data => {
-          $('#app-container').html('<h1>Your Agents</h1><br><br>')
+          $('#app-container').html('<h1>Your Agents</h1><br>')
           Object.values(data)[0].forEach(agent => {
           let newAgent = new Agent(agent)
-          let postHtml = newAgent.formatIndex()
+          let agentHtml = newAgent.formatIndex()
           userId = newAgent.user_id
-          $('#app-container').append(postHtml)
+          $('#app-container').append(agentHtml)
 
         })
         $('#app-container').append(`
@@ -32,15 +32,12 @@ function Agent(agent) {
   this.id = agent["id"]
   this.user_id = agent["attributes"]["user-id"]
   this.players = agent["relationships"]["players"]
-  this.clubs = agent["relationships"]["clubs"]
-  this.contracts = agent["relationships"]["contracts"]
-  this.user = agent["relationships"]["user"]
-}
+  }
 
 Agent.prototype.formatIndex = function() {
-  let postHtml = `
+  let agentHtml = `
   <a href="/users/${this.user_id}/agents/${this.id}">${this.name}</a><br>
   `
 
-  return postHtml
+  return agentHtml
 }

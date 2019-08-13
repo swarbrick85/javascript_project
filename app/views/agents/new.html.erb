@@ -3,7 +3,7 @@
 <%= render 'error' %>
 
 
-<%= form_tag ({controller: "agents", action: "create", method: "post"}) do %>
+<%= form_tag ({controller: "agents", action: "create", method: "post", :id => "new_agent"}) do %>
 
 <label>Name:</label>
 <%= text_field_tag "agent[name]" %><br>
@@ -13,6 +13,6 @@
 
 <%= hidden_field_tag "agent[user_id]", session[:user_id] %><br>
 
-<%= submit_tag "Create Agent" %>
+<%= submit_tag "Create Agent", type: "submit", id: "create_agent"%>
 <% end %>
 <br><%= link_to "Your Home Page", user_path(User.find_by_id(session[:user_id])) %>
