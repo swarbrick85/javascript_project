@@ -26,11 +26,13 @@ class AgentsController < ApplicationController
 
   def create
     @agent = Agent.new(agent_params)
-    if @agent.save
-      redirect_to user_agent_path(@agent.user, @agent)
-    else
-      render 'agents/new'
-    end
+    @agent.save!
+    # if @agent.save
+    render json: @agent
+      # redirect_to user_agent_path(@agent.user, @agent)
+    # else
+    #   render 'agents/new'
+    # end
   end
 
   def edit
