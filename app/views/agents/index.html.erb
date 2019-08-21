@@ -1,5 +1,6 @@
 <h1>Your Agents</h1>
-<% counter = 0 %>
+<button id="alphabetize" href="/users/1/agents">Alphabetize Agents</button>
+<br><% counter = 0 %>
 <% if !@agents.nil? %>
 <% @agents.each do |agent| %>
 <% if agent.valid? %>
@@ -9,5 +10,6 @@
 <% end %>
 <% end %>
 <br>
+
 <%= link_to "Create a New Agent", new_user_agent_path(User.find_by_id(session[:user_id])) %>
 <br><%= link_to "Your Home Page", user_path(User.find_by_id(session[:user_id])), class: "home" %>

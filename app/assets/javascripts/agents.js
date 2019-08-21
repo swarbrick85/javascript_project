@@ -10,6 +10,10 @@ $(() => {
   create_agent()
 })
 
+$(() => {
+  alphabetize()
+})
+
 const agents = () => {
   let userId
   $('.agents').on('click', (e) => {
@@ -19,6 +23,45 @@ const agents = () => {
       .then(data => {
           $('#app-container').html('<h1>Your Agents</h1><br>')
           Object.values(data)[0].forEach(agent => {
+          let newAgent = new Agent(agent)
+          let agentHtml = newAgent.formatIndex()
+          userId = newAgent.user_id
+          $('#app-container').append(agentHtml)
+
+        })
+        $('#app-container').append(`
+          <br>
+          <a href="/users/${userId}/agents/new">Create a New Agent</a><br>
+          <a href="/users/${userId}">Your Home Page</a><br>
+          `)
+      })
+  })
+}
+
+const alphabetize = () => {
+  let userId
+  $('#alphabetize').on('click', (e) => {
+    e.preventDefault()
+    fetch(`${$("#alphabetize").attr("href")}` + `.json`)
+      .then(res => res.json())
+      .then(data => {
+          $('#app-container').html('<h1>Your Agents</h1><br>')
+          let agents = Object.values(data)[0]
+          agents.sort(function(a, b) {
+              var nameA = a["attributes"]["name"].toUpperCase();
+              var nameB = b["attributes"]["name"].toUpperCase();
+              if (nameA < nameB) {
+                return -1;
+              }
+              if (nameA > nameB) {
+                return 1;
+              }
+
+              // names must be equal
+              return 0;
+            });
+
+          agents.forEach(agent => {
           let newAgent = new Agent(agent)
           let agentHtml = newAgent.formatIndex()
           userId = newAgent.user_id
